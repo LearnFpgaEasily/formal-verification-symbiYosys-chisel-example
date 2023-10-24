@@ -11,10 +11,10 @@ class Counter(max_count: Int) extends Module {
     val reg_count = RegInit(0.U(log2Ceil(max_count).W))
     when(io.enable){
         reg_count := Mux(reg_count===max_count.U, 0.U, reg_count+1.U)
+        io.pulse := reg_count === max_count.U
     }
     io.count := reg_count
-    io.pulse := reg_count === max_count.U
-
+    io.pulse := 0.U
 }
 
 object Main extends App{
